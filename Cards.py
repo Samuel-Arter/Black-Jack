@@ -15,12 +15,16 @@ def draw_card():
 def calculate_score(hand):
     score = 0
     for card in hand:
-        score +=
+        score += values[card[1]]
+    if card[1] == 'A' and score > 21:
+        score -= 10
+    return score
 
 
 def main():
     player_hand = [draw_card(), draw_card()]
-    return player_hand
+    print(player_hand)
+    print(calculate_score(player_hand))
 
 if __name__ == "__main__":
-    print(main())
+    main()
