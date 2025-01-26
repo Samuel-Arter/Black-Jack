@@ -22,6 +22,7 @@ def calculate_score(hand, score):
     return score
 
 def player_turn(hand):
+    global action
     while True:
         action = input("Would you like to 'hit' or 'stand': ").strip().lower()
 
@@ -31,7 +32,7 @@ def player_turn(hand):
         elif action == "stand":
             break
         else:
-            print("please type 'hit' or stand' only")
+            print("please type 'hit' or 'stand' only")
 
     return
 
@@ -41,11 +42,28 @@ def main():
     player_hand = [draw_card(), draw_card()]
     dealer_hand = [draw_card(), draw_card()]
 
-    print(f"Your hand: {player_hand[0][1]} of {player_hand[0][0]}\n "
-          f"          {player_hand[1][1]} of {player_hand[1][0]}")
-    print(f"Your Score: {calculate_score(player_hand, player_score)}")
+    print("Your Hand: ")
+    for card in player_hand:
+        print(f"{card[1]} of {card[0]}")
 
-    player_turn(player_hand)
+    while True:
+        player_turn(player_hand)
+
+        if action == "hit":
+
+            print("Your Hand: ")
+            for card in player_hand:
+                print(f"{card[1]} of {card[0]}")
+            print(f"Your Score: {calculate_score(player_hand, player_score)}")
+
+        elif action == "stand":
+            break
+
+
+
+
+
+
 
 
 
