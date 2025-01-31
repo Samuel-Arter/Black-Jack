@@ -73,7 +73,6 @@ def main():
         elif player_action == "stand":
             break
 
-
     print("Dealer's Hand: ")
     for card in dealer_hand:
         print(f"{card[1]} of {card[0]}")
@@ -85,7 +84,18 @@ def main():
         print(f"{card[1]} of {card[0]}")
     print(f"Dealer's Final Score: {calculate_score(dealer_hand)}")
 
+    if calculate_score(dealer_hand) > 21:
+        print("The Dealer has bust, you win!!")
+        exit()
 
+    elif calculate_score(player_hand) < calculate_score(dealer_hand):
+        print("The Dealer has scored higher, you lose")
+
+    elif calculate_score(player_hand) == calculate_score(dealer_hand):
+        print("The player and dealer have the same score, neither win")
+
+    else:
+        print("The player has scored higher, you win")
 
 
 
