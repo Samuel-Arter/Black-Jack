@@ -34,11 +34,12 @@ def player_turn(hand):
 
     return
 
-def dealer_turn(hand):
-    while calculate_score(hand) < 17:
-        hand.append(draw_card)
+def dealer_turn(hand, score):
+    while score < 17:
+        hand.append(draw_card())
+        score = calculate_score(hand)
 
-    return
+    return hand
 
 
 def main():
@@ -50,7 +51,10 @@ def main():
         print(f"{card[1]} of {card[0]}")
     print(f"Your Score: {calculate_score(player_hand)}")
 
-    print
+    print("Dealer's Hand: ")
+    print(f"{dealer_hand[0][1]} of {dealer_hand[0][0]}")
+    print("'Unknown'")
+    print(f"Dealer Score: {values[dealer_hand[0][1]]}")
 
     while True:
         player_turn(player_hand)
@@ -70,8 +74,16 @@ def main():
             break
 
 
+    print("Dealer's Hand: ")
+    for card in dealer_hand:
+        print(f"{card[1]} of {card[0]}")
+    print(f"Dealer's Score: {calculate_score(dealer_hand)}")
 
-
+    dealer_turn(dealer_hand, calculate_score(dealer_hand))
+    print("Dealer's Final Hand:")
+    for card in dealer_hand:
+        print(f"{card[1]} of {card[0]}")
+    print(f"Dealer's Final Score: {calculate_score(dealer_hand)}")
 
 
 
