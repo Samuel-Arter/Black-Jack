@@ -41,6 +41,14 @@ def dealer_turn(hand, score):
 
     return hand
 
+def display_cards(hand):
+    for card in hand:
+        print(' ______ ')
+        print('|{}    |'.format(card[1]))
+        print('|  {}  |'.format(card[0]))
+        print('|    {}|'.format(card[1]))
+        print(' ------ ')
+    return
 
 def main():
     player_hand = [draw_card(), draw_card()]
