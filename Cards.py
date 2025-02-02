@@ -42,12 +42,17 @@ def dealer_turn(hand, score):
     return hand
 
 def display_cards(hand):
+    rows = ['', '', '', '', '']
     for card in hand:
-        print(' ______ ')
-        print('|{}    |'.format(card[1]))
-        print('|  {}  |'.format(card[0]))
-        print('|    {}|'.format(card[1]))
-        print(' ------ ')
+        rows[0] += '┌──────┐'
+        rows[1] += '|{}    |'.format(card[1])
+        rows[2] += '|  {}  |'.format(card[0])
+        rows[3] += '|    {}|'.format(card[1])
+        rows[4] += '└──────┘'
+
+    for row in rows:
+        print(row)
+
     return
 
 def main():
