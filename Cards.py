@@ -45,12 +45,22 @@ def dealer_turn(hand, score):
 def display_cards(hand):
     rows = ['', '', '', '', '']
 
-    for suit, rank  in hand:
+    for card in hand:
 
-        if rank == '10':
-            space = ''
+        if card == 'blank':
+            rows[0] += '┌─────────┐'
+            rows[1] += '|#####    |'
+            rows[2] += '|  #####  | '
+            rows[3] += '|    #####|'
+            rows[4] += '└─────────┘'
+            break
         else:
-            space = ' '
+            suit, rank = card
+
+            if rank == '10':
+                space = ''
+            else:
+                space = ' '
 
         rows[0] += '┌─────────┐  '
         rows[1] += f'| {rank}{space}      |  '
@@ -66,7 +76,7 @@ def display_cards(hand):
 
 def main():
     player_hand = [draw_card(), draw_card()]
-    dealer_hand = [draw_card(), draw_card()]
+    dealer_hand = [draw_card(), 'blank']
 
     print("Your Hand: ")
     display_cards(player_hand)
@@ -75,6 +85,7 @@ def main():
     print("Dealer's Hand: ")
     display_cards(dealer_hand)
 
+    dealer_hand.pop()
 
     while True:
         player_turn(player_hand)
