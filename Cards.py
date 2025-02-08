@@ -1,6 +1,7 @@
 from random import *
 from itertools import *
 from sys import *
+from time import sleep
 
 # shuffled deck with values
 values = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8,
@@ -67,14 +68,12 @@ def main():
     dealer_hand = [draw_card(), draw_card()]
 
     print("Your Hand: ")
-    for card in player_hand:
-        print(f"{card[1]} of {card[0]}")
-    print(f"Your Score: {calculate_score(player_hand)}")
+    display_cards(player_hand)
+
 
     print("Dealer's Hand: ")
-    print(f"{dealer_hand[0][1]} of {dealer_hand[0][0]}")
-    print("'Unknown'")
-    print(f"Dealer Score: {values[dealer_hand[0][1]]}")
+    display_cards(dealer_hand)
+
 
     while True:
         player_turn(player_hand)
@@ -82,9 +81,7 @@ def main():
         if player_action == "hit":
 
             print("Your Hand: ")
-            for card in player_hand:
-                print(f"{card[1]} of {card[0]}")
-            print(f"Your Score: {calculate_score(player_hand)}")
+            display_cards(player_hand)
 
             if calculate_score(player_hand) > 21:
                 print("Your score is over 21, you have lost")
@@ -94,15 +91,12 @@ def main():
             break
 
     print("Dealer's Hand: ")
-    for card in dealer_hand:
-        print(f"{card[1]} of {card[0]}")
-    print(f"Dealer's Score: {calculate_score(dealer_hand)}")
+    display_cards(dealer_hand)
 
     dealer_turn(dealer_hand, calculate_score(dealer_hand))
     print("Dealer's Final Hand:")
-    for card in dealer_hand:
-        print(f"{card[1]} of {card[0]}")
-    print(f"Dealer's Final Score: {calculate_score(dealer_hand)}")
+    display_cards(dealer_hand)
+
 
     if calculate_score(dealer_hand) > 21:
         print("The Dealer has bust, you win!!")
