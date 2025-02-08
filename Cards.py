@@ -63,6 +63,16 @@ def display_cards(hand):
 
     return
 
+def blank_card():
+
+    print('┌─────────┐')
+    print('|#####    |')
+    print('|  #####  | ')
+    print('|    #####|')
+    print('└─────────┘')
+
+    return
+
 def main():
     player_hand = [draw_card(), draw_card()]
     dealer_hand = [draw_card(), draw_card()]
