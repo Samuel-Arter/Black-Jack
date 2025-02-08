@@ -43,12 +43,19 @@ def dealer_turn(hand, score):
 
 def display_cards(hand):
     rows = ['', '', '', '', '']
-    for card in hand:
-        rows[0] += '┌──────┐'
-        rows[1] += '|{}    |'.format(card[1])
-        rows[2] += '|  {}  |'.format(card[0])
-        rows[3] += '|    {}|'.format(card[1])
-        rows[4] += '└──────┘'
+
+    for suit, rank  in hand:
+
+        if rank == '10':
+            space = ''
+        else:
+            space = ' '
+
+        rows[0] += '┌─────────┐  '
+        rows[1] += f'| {rank}{space}      |  '
+        rows[2] += f'|    {suit}    |  '
+        rows[3] += f'|      {space}{rank} |  '
+        rows[4] += '└─────────┘  '
 
     for row in rows:
         print(row)
