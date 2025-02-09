@@ -81,18 +81,20 @@ def main():
     print("Your Hand: ")
     display_cards(player_hand)
 
-
+    sleep(1)
     print("Dealer's Hand: ")
     display_cards(dealer_hand)
 
     dealer_hand.pop()
+    dealer_hand.append(draw_card())
 
     while True:
         player_turn(player_hand)
 
         if player_action == "hit":
 
-            print("Your Hand: ")
+            print("Your New Hand...  ")
+            sleep(1)
             display_cards(player_hand)
 
             if calculate_score(player_hand) > 21:
@@ -102,11 +104,14 @@ def main():
         elif player_action == "stand":
             break
 
-    print("Dealer's Hand: ")
+    print("Dealer's reveals hand... ")
+    sleep(1)
     display_cards(dealer_hand)
 
+
     dealer_turn(dealer_hand, calculate_score(dealer_hand))
-    print("Dealer's Final Hand:")
+    print("Dealer's final hand... ")
+    sleep(2)
     display_cards(dealer_hand)
 
 
