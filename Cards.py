@@ -74,7 +74,7 @@ def make_bet(income):
 
     while True:
         try:
-            bet = int(input(f"You have {income}\n How much would you like to bet: ").strip())
+            bet = int(input(f"You have {income}\nHow much would you like to bet: ").strip())
 
             if bet > income:
                 print("Bet exceeds the amount you have, try again")
@@ -88,60 +88,66 @@ def make_bet(income):
 def main():
     money = 5000
 
-    player_hand = [draw_card(), draw_card()]
-    dealer_hand = [draw_card(), 'blank']
-
-    print("Your Hand: ")
-    display_cards(player_hand)
-
-    time.sleep(1)
-    print("Dealer's Hand: ")
-    display_cards(dealer_hand)
-
-    dealer_hand.pop()
-    dealer_hand.append(draw_card())
-
     while True:
-        player_turn(player_hand)
+        bet = make_bet(money)
 
-        if player_action == "hit":
+        player_hand = [draw_card(), draw_card()]
+        dealer_hand = [draw_card(), 'blank']
 
-            print("Your New Hand...  ")
-            time.sleep(1)
-            display_cards(player_hand)
+        print("\nYour Hand: ")
+        display_cards(player_hand)
 
-            if calculate_score(player_hand) > 21:
-                print("Your score is over 21, you have lost")
-                sys.exit()
+        time.sleep(1)
+        print("\nDealer's Hand: ")
+        display_cards(dealer_hand)
 
-        elif player_action == "stand":
-            break
+        dealer_hand.pop()
+        dealer_hand.append(draw_card())
 
-    print("Dealer's reveals hand... ")
-    time.sleep(1)
-    display_cards(dealer_hand)
+        while True:
+            player_turn(player_hand)
+
+            if player_action == "hit":
+
+                print("Your New Hand...  ")
+                time.sleep(1)
+                display_cards(player_hand)
+
+                if calculate_score(player_hand) > 21:
+                    print("Your score is over 21, you have lost\n\n")
+                    break
+
+            elif player_action == "stand":
+                break
+
+        if calculate_score(player_hand) > 21:
+            money -= bet
+            continue
+
+        print("Dealer's reveals hand... ")
+        time.sleep(1)
+        display_cards(dealer_hand)
 
 
-    dealer_turn(dealer_hand, calculate_score(dealer_hand))
-    print("Dealer's final hand... ")
-    time.sleep(2)
-    display_cards(dealer_hand)
+        dealer_turn(dealer_hand, calculate_score(dealer_hand))
+        print("Dealer's final hand... ")
+        time.sleep(2)
+        display_cards(dealer_hand)
 
 
-    if calculate_score(dealer_hand) > 21:
-        print("The Dealer has bust, you win!!")
-
-    elif calculate_score(player_hand) < calculate_score(dealer_hand):
-        print("The Dealer has scored higher, you lose")
-
-    elif calculate_score(player_hand) == calculate_score(dealer_hand):
-        print("The player and dealer have the same score, neither win")
-
-    else:
-        print("The player has scored higher, you win")
-
+        if calculate_score(dealer_hand) > 21:
+            print("The Dealer has bust, you win!!")
+            money += bet
+        elif calculate_score(player_hand) < calculate_score(dealer_hand):
+            print("The Dealer has scored higher, you lose")
+            money -= bet
+        elif calculate_score(player_hand) == calculate_score(dealer_hand):
+            print("The player and dealer have the same score, neither win")
+        else:
+            print("The player has scored higher, you win")
+            money += bet
+        print("\n\n")
 
 
 if __name__ == "__main__":
-    money = 5000
-    make_bet(money)
+    main()
