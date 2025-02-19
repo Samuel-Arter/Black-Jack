@@ -1,15 +1,12 @@
-from random import *
-from itertools import *
-from sys import *
-from time import sleep
+import random, sys, itertools, time
 
 # shuffled deck with values
 values = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8,
           '9': 9, '10': 10, 'J': 10, 'Q': 10, 'K': 10, 'A': 11}
 suit = [chr(9829), chr(9827), chr(9830), chr(9824)]
 
-deck = list(product(suit, list(values.keys())))
-shuffle(deck)
+deck = list(itertools.product(suit, list(values.keys())))
+random.shuffle(deck)
 
 def draw_card():
     return deck.pop()
@@ -73,15 +70,31 @@ def display_cards(hand):
 
     return
 
+def make_bet(income):
+
+    while True:
+        try:
+            bet = int(input(f"You have {income}\n How much would you like to bet: ").strip())
+
+            if bet > income:
+                print("Bet exceeds the amount you have, try again")
+
+            else:
+                return bet
+
+        except ValueError:
+            print("please only enter an integer")
 
 def main():
+    money = 5000
+
     player_hand = [draw_card(), draw_card()]
     dealer_hand = [draw_card(), 'blank']
 
     print("Your Hand: ")
     display_cards(player_hand)
 
-    sleep(1)
+    time.sleep(1)
     print("Dealer's Hand: ")
     display_cards(dealer_hand)
 
@@ -94,30 +107,29 @@ def main():
         if player_action == "hit":
 
             print("Your New Hand...  ")
-            sleep(1)
+            time.sleep(1)
             display_cards(player_hand)
 
             if calculate_score(player_hand) > 21:
                 print("Your score is over 21, you have lost")
-                exit()
+                sys.exit()
 
         elif player_action == "stand":
             break
 
     print("Dealer's reveals hand... ")
-    sleep(1)
+    time.sleep(1)
     display_cards(dealer_hand)
 
 
     dealer_turn(dealer_hand, calculate_score(dealer_hand))
     print("Dealer's final hand... ")
-    sleep(2)
+    time.sleep(2)
     display_cards(dealer_hand)
 
 
     if calculate_score(dealer_hand) > 21:
         print("The Dealer has bust, you win!!")
-        exit()
 
     elif calculate_score(player_hand) < calculate_score(dealer_hand):
         print("The Dealer has scored higher, you lose")
@@ -131,4 +143,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    money = 5000
+    make_bet(money)
