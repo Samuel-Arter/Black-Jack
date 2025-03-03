@@ -145,6 +145,7 @@ def main():
                 break
 
         if calculate_score(player_hand) > 21:
+            end_script()
             continue
 
         print("Dealer's reveals hand... ")
