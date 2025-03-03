@@ -14,6 +14,8 @@ def draw_card():
 def calculate_score(hand):
     score = 0
     for card in hand:
+        if card == 'blank':
+            continue
         score += values[card[1]]
     return score
 
@@ -85,6 +87,21 @@ def make_bet(income):
         except ValueError:
             print("please only enter an integer")
 
+def exit():
+    while True:
+        action = input("Press 'Y' to keep playing or 'Q' quit: ").strip().upper()
+
+        if action == 'Y':
+            return
+
+        elif action == 'Q':
+            print("Thanks for playing!!")
+            sys.exit()
+
+        else:
+            print("Please only press 'Y' or 'Q'")
+
+
 def main():
     money = 5000
 
@@ -94,11 +111,11 @@ def main():
         player_hand = [draw_card(), draw_card()]
         dealer_hand = [draw_card(), 'blank']
 
-        print("\nYour Hand: ")
+        print(f"\nYour Hand: {calculate_score(player_hand)} ")
         display_cards(player_hand)
 
-        time.sleep(1)
-        print("\nDealer's Hand: ")
+        time.sleep(2)
+        print(f"\nDealer's Hand: {calculate_score(dealer_hand)} ")
         display_cards(dealer_hand)
 
         dealer_hand.pop()
@@ -147,6 +164,8 @@ def main():
             print("The player has scored higher, you win")
             money += bet
         print("\n\n")
+
+        exit()
 
 
 if __name__ == "__main__":
