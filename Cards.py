@@ -87,7 +87,8 @@ def make_bet(income):
         except ValueError:
             print("please only enter an integer")
 
-def exit():
+
+def end_script():
     while True:
         action = input("Press 'Y' to keep playing or 'Q' quit: ").strip().upper()
 
@@ -111,11 +112,11 @@ def main():
         player_hand = [draw_card(), draw_card()]
         dealer_hand = [draw_card(), 'blank']
 
-        print(f"\nYour Hand: {calculate_score(player_hand)} ")
+        print("\nYour Hand: ")
         display_cards(player_hand)
 
         time.sleep(2)
-        print(f"\nDealer's Hand: {calculate_score(dealer_hand)} ")
+        print("\nDealer's Hand: ")
         display_cards(dealer_hand)
 
         dealer_hand.pop()
@@ -132,17 +133,22 @@ def main():
 
                 if calculate_score(player_hand) > 21:
                     print("Your score is over 21, you have lost\n\n")
+                    money -= bet
+
+                    if money <= 0:
+                        print("You have run out of money. Thanks for playing!")
+                        sys.exit()
+
                     break
 
             elif player_action == "stand":
                 break
 
         if calculate_score(player_hand) > 21:
-            money -= bet
             continue
 
         print("Dealer's reveals hand... ")
-        time.sleep(1)
+        time.sleep(2)
         display_cards(dealer_hand)
 
 
@@ -165,7 +171,11 @@ def main():
             money += bet
         print("\n\n")
 
-        exit()
+        if money <= 0:
+            print("You have run out of money. Thanks for playing!")
+            sys.exit()
+
+        end_script()
 
 
 if __name__ == "__main__":
