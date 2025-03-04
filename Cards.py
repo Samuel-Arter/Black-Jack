@@ -8,10 +8,14 @@ suit = [chr(9829), chr(9827), chr(9830), chr(9824)]
 deck = list(itertools.product(suit, list(values.keys())))
 random.shuffle(deck)
 
+
 def draw_card():
+    """Function to draw card
+    makes other functions slightly easier to read."""
     return deck.pop()
 
 def calculate_score(hand):
+    """Determines the hand score of the player/dealer"""
     score = 0
     for card in hand:
         if card == 'blank':
@@ -20,6 +24,7 @@ def calculate_score(hand):
     return score
 
 def player_turn(hand):
+    """Determines whether a player draws a card ('hit') or not ('stand')."""
     global player_action
     while True:
         player_action = input("Would you like to 'hit' or 'stand': ").strip().lower()
@@ -35,6 +40,8 @@ def player_turn(hand):
     return
 
 def dealer_turn(hand, score):
+    """Determines whether the dealer draws a card or not
+    If Dealer's hand is 17 or more, no card will be drawn."""
     while score < 17:
         hand.append(draw_card())
         score = calculate_score(hand)
@@ -42,6 +49,7 @@ def dealer_turn(hand, score):
     return hand
 
 def display_cards(hand):
+    """Used to display the current hand of the dealer or player."""
     rows = ['', '', '', '', '']
 
     for card in hand:
@@ -73,7 +81,7 @@ def display_cards(hand):
     return
 
 def make_bet(income):
-
+    """Determines how much the player is willing to bet."""
     while True:
         try:
             bet = int(input(f"You have {income}\nHow much would you like to bet: ").strip())
@@ -89,6 +97,7 @@ def make_bet(income):
 
 
 def end_script():
+    """Used to determine if the player wants to end the script/game."""
     while True:
         action = input("Press 'Y' to keep playing or 'Q' quit: ").strip().upper()
 
@@ -104,11 +113,13 @@ def end_script():
 
 
 def main():
+    # player's balance
     money = 5000
 
     while True:
-        bet = make_bet(money)
+        bet = make_bet(money)   # determine player's bet
 
+        # display starting hand of player/dealer
         player_hand = [draw_card(), draw_card()]
         dealer_hand = [draw_card(), 'blank']
 
@@ -119,6 +130,7 @@ def main():
         print("\nDealer's Hand: ")
         display_cards(dealer_hand)
 
+        # replace 'blank' card in dealer's deck with a card from the deck
         dealer_hand.pop()
         dealer_hand.append(draw_card())
 
