@@ -25,7 +25,6 @@ def calculate_score(hand):
 
 def player_turn(hand):
     """Determines whether a player draws a card ('hit') or not ('stand')."""
-    global player_action
     while True:
         player_action = input("Would you like to 'hit' or 'stand': ").strip().lower()
 
@@ -37,7 +36,7 @@ def player_turn(hand):
         else:
             print("please type 'hit' or 'stand' only")
 
-    return
+    return player_action
 
 def dealer_turn(hand, score):
     """Determines whether the dealer draws a card or not
@@ -135,7 +134,7 @@ def main():
         dealer_hand.append(draw_card())
 
         while True:
-            player_turn(player_hand)
+            player_action = player_turn(player_hand)
 
             if player_action == "hit":
 
