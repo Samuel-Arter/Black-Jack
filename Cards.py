@@ -134,6 +134,7 @@ def main():
         dealer_hand.append(draw_card())
 
         while True:
+            # determine whether player will hit or stand
             player_action = player_turn(player_hand)
 
             if player_action == "hit":
@@ -146,6 +147,7 @@ def main():
                     print("Your score is over 21, you have lost\n\n")
                     money -= bet
 
+                    # end script if player has run out of money
                     if money <= 0:
                         print("You have run out of money. Thanks for playing!")
                         sys.exit()
@@ -155,21 +157,23 @@ def main():
             elif player_action == "stand":
                 break
 
+        # restart while loop and ask player if they want to quit if player has score over 21
         if calculate_score(player_hand) > 21:
             end_script()
             continue
 
+        # reveal dealer's hand
         print("Dealer's reveals hand... ")
         time.sleep(2)
         display_cards(dealer_hand)
 
-
+        # determine if dealer will draw additional cards and display dealer's final hand
         dealer_turn(dealer_hand, calculate_score(dealer_hand))
         print("Dealer's final hand... ")
         time.sleep(2)
         display_cards(dealer_hand)
 
-
+        # determine if player or dealer has won the game
         if calculate_score(dealer_hand) > 21:
             print("The Dealer has bust, you win!!")
             money += bet
@@ -183,10 +187,12 @@ def main():
             money += bet
         print("\n\n")
 
+        # end game if player is out of money
         if money <= 0:
             print("You have run out of money. Thanks for playing!")
             sys.exit()
 
+        # ask player if they want to continue playing
         end_script()
 
 
