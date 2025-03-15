@@ -14,6 +14,7 @@ def draw_card():
     makes other functions slightly easier to read."""
     return deck.pop()
 
+
 def calculate_score(hand):
     """Determines the hand score of the player/dealer"""
     score = 0
@@ -22,6 +23,7 @@ def calculate_score(hand):
             continue
         score += values[card[1]]
     return score
+
 
 def player_turn(hand):
     """Determines whether a player draws a card ('hit') or not ('stand')."""
@@ -38,6 +40,7 @@ def player_turn(hand):
 
     return player_action
 
+
 def dealer_turn(hand, score):
     """Determines whether the dealer draws a card or not
     If Dealer's hand is 17 or more, no card will be drawn."""
@@ -46,6 +49,7 @@ def dealer_turn(hand, score):
         score = calculate_score(hand)
 
     return hand
+
 
 def display_cards(hand):
     """Used to display the current hand of the dealer or player."""
@@ -78,6 +82,7 @@ def display_cards(hand):
         print(row)
 
     return
+
 
 def make_bet(income):
     """Determines how much the player is willing to bet."""
